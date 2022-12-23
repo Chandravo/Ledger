@@ -18,14 +18,6 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
     
-    # def create_user(self, email, password=None, name=None):
-    #     if not email:
-    #         raise ValueError("Email required")
-
-    #     user = self.create_user(email=email, password=password, name=name)
-    #     user.is_active = True
-    #     user.save(using=self._db)
-    #     return user
 
     def create_superuser(self, email, password=None, name=None):
         user = self.create_user(email=email, password=password, name=name)

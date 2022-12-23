@@ -11,7 +11,9 @@
     your rooms are:
     <ul>
         {% for room in rooms %}
-            <li>Name: {{room.name}}<br> Key:{{room.key}}</li>
+            <li>Name: {{room.name}}<br> Key:{{room.key}}<br>
+                <button onclick="location.href='/room/{{room.key}}'">Go to room</button>
+            </li>
         {% endfor %}
     </ul>
     <br>

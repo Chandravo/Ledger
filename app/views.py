@@ -51,7 +51,7 @@ def create_room(request):
         room_key = ''.join(random.choice(string.digits) for i in range(6))
         while (Room.objects.filter(key=room_key).exists()):
             room_key = ''.join(random.choices(string.digits) for i in range(6))
-        room = Room.objects.create(key=room_key, name=room_name, password=room_password)
+        room = Room.objects.create(key=room_key, name=room_name, password=room_password, creator=request.user)
         room.users.add(request.user)
         room.save()
         return render(request,'room_created.html', {'room_key': room_key, 'room_name': room_name,'room_password': room_password})
@@ -68,7 +68,7 @@ def join_room(request):
             if room.password == room_password:
                 room.users.add(request.user)
                 room.save()
-                return render(request, 'room_joined.html', {'room_key': room_key, 'room_name': room.name})
+                return redirect('/room/'+room_key)
             else:
                 messages.add_message(request, messages.ERROR, "Wrong password!")
                 return render(request, 'join_room.html')
@@ -79,5 +79,32 @@ def join_room(request):
         return render(request, 'join_room.html')
 
 
+@login_required(login_url='/login')
+def room(request,room_key):
+    if (Room.objects.filter(key=room_key).exists()):
+        room=Room.objects.get(key=room_key)
+        if (request.user in room.users.all()):
+            room = Room.objects.get(key=room_key)
+            users=room.users.all()
+            return render(request, 'room.html', {'room': room, 'users': users, 'curr_user': request.user})
+        else:
+            error="You are not in this room!"
+            return render(request, 'no_room.html', {'error': error})
+        
+    else:
+        error="Room does not exist!"
+        return render(request, 'no_room.html', {'error': error})
     
-
+@login_required(login_url='/login')
+def delete_room(request, room_key):
+    if (Room.objects.filter(key=room_key).exists()):
+        room=Room.objects.get(key=room_key)
+        if (request.user == room.creator):
+            room.delete()
+            return redirect('/')
+        else:
+            error = "You are not the creator of this room!"
+            return render(request, 'no_room.html', {'error': error})
+    else:
+        error = "Room does not exist!"
+        return render(request, 'no_room.html', {'error': error})

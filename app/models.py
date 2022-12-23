@@ -33,6 +33,7 @@ class User(AbstractBaseUser):
     
     
 class Room(models.Model):
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='creator', default=None)
     key = models.CharField(max_length=100, null=False, blank=False)
     name = models.CharField(max_length=100, null=False, blank=False, default='')
     password = models.CharField(max_length=20, null=False, blank=False)
@@ -49,7 +50,7 @@ class money_request(models.Model):
     def __str__(self):
         return self.user.email
     
-class receipts(models.Model):
+class receipt(models.Model):
     from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="from_receipt")
     to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="to_receipt")
     room = models.ForeignKey(Room, on_delete=models.CASCADE)

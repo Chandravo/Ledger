@@ -7,11 +7,14 @@
     <title>Login</title>
 </head>
 <body>
+    <h1>Login</h1>
     <form method="POST" action="{% url 'login' %}">
         {% csrf_token %}
         <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Password" required>
         <input type="submit" value="Login">
     </form>
+    <br>
+    <button onclick="location.href='{% url 'register' %}'">register</button>
 </body>
 </html>
