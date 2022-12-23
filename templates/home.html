@@ -7,6 +7,15 @@
     <title>Home</title>
 </head>
 <body>
-    Hello
+    Hello {{name}}
+    your rooms are:
+    <ul>
+        {% for room in rooms %}
+            <li>Name: {{room.name}}<br> Key:{{room.key}}</li>
+        {% endfor %}
+    </ul>
+    <br>
+    <button onclick="location.href='/create_room'">Create Room</button>
+    <button onclick="location.href='/join_room'">Join Room</button>
 </body>
 </html>

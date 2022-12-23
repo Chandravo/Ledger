@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Room</title>
+</head>
+<body>
+    <h1>Join Room</h1>
+    <form method="POST" action="{% url 'join_room' %}">
+        {% csrf_token %}
+        <input type="text" name="room_key" placeholder="Room Key">
+        <input type="password" name="room_password" placeholder="Room Password">
+        <input type="submit" value="Join Room">
+    </form>
+</body>
+</html>
