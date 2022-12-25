@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import User, Room
+from .models import User, Room, money_request, receipt
 
 import random
 import string
@@ -108,3 +108,29 @@ def delete_room(request, room_key):
     else:
         error = "Room does not exist!"
         return render(request, 'no_room.html', {'error': error})
+    
+@login_required(login_url='/login')
+def create_money_request(request,room_key):
+    if request.method == 'POST':
+        room_key = request.POST['room_key']
+        amount = request.POST['amount']
+        description = request.POST['description']
+        to_user_email = request.POST['to_user']
+        to_user=User.objects.get(email=to_user_email)
+        if Room.objects.filter(key=room_key).exists():
+            room = Room.objects.get(key=room_key)
+            if (request.user in room.users.all()):
+                req = money_request.objects.create(room=room, amount=amount, description=description, from_user=request.user, to_user=to_user)
+                req.save()
+                return redirect('/room/'+room_key)
+            else:
+                error="You are not in this room!"
+                return render(request, 'no_room.html', {'error': error})
+        else:
+            error="Room does not exist!"
+            return render(request, 'no_room.html', {'error': error})
+    else:
+        room = Room.objects.get(key=room_key)
+        from_user = request.user
+        users = room.users.all()
+        return render(request, 'create_money_request.html', {'room_key': room_key, 'from_user': from_user, 'users': users})

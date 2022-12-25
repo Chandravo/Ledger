@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Request</title>
+</head>
+<body>
+    <h1>Create Money Request</h1>
+    <form method="POST" action="create_money_request">
+        {% csrf_token %}
+        <input type="text" name="room_key" value="{{room_key}}" placeholder="Room Key">
+        <input type="text" name="from_user" value="{{from_user}}" placeholder="From User">
+        <label for="to_user">To User</label>
+        <select name="to_user" id="to_user">
+            {% for user in users %}
+            {% if user != from_user %}
+                <option value="{{user}}">{{user}}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+        <input type="text" name="amount" placeholder="Amount">
+        <input type="text" name="description" placeholder="Description">
+        <input type="submit" value="Create Request">
+    </form>
+</body>
+</html>

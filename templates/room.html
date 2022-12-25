@@ -17,6 +17,8 @@
         {% endfor %}
     </ul>
     <br><br>
+    <button onclick="location.href='/room/{{room.key}}/create_money_request'">Create Money Request</button>
+    <br><br>
     <button onclick="location.href='/';">Go home</button>
     <br><br>
     {% if room.creator == curr_user %}

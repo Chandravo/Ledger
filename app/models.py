@@ -46,16 +46,18 @@ class money_request(models.Model):
     to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="to_money")
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     amount = models.IntegerField()
+    description = models.CharField(max_length=250, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return self.user.email
+        return self.from_user.email
     
 class receipt(models.Model):
     from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="from_receipt")
     to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="to_receipt")
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     amount = models.IntegerField()
+    description = models.CharField(max_length=250, null=True, blank=True)
     last_updated = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return self.user.email
+        return self.from_user.email
     
