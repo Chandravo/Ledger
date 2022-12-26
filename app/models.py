@@ -47,7 +47,11 @@ class money_request(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     amount = models.IntegerField()
     description = models.CharField(max_length=250, null=True, blank=True)
+    key = models.CharField(max_length=20, null=False, blank=False, default='')
+    is_accepted = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True)
+    
+    
     def __str__(self):
         return self.from_user.email
     
@@ -56,8 +60,18 @@ class receipt(models.Model):
     to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="to_receipt")
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     amount = models.IntegerField()
-    description = models.CharField(max_length=250, null=True, blank=True)
     last_updated = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return self.from_user.email
     
+    def save(self, *args, **kwargs):
+        if (self.amount == 0):
+            super(receipt, self).delete()
+        elif (self.amount < 0):
+            self.amount = -self.amount
+            self.to_user, self.from_user = self.from_user, self.to_user
+            super(receipt, self).save(*args, **kwargs)
+        else:
+            super(receipt, self).save(*args, **kwargs)
+

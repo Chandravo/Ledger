@@ -10,8 +10,10 @@
     <h1>Join Room</h1>
     <form method="POST" action="{% url 'join_room' %}">
         {% csrf_token %}
-        <input type="text" name="room_key" placeholder="Room Key">
-        <input type="password" name="room_password" placeholder="Room Password">
+        Room Key :
+        <input type="text" name="room_key" placeholder="Room Key"><br>
+        Room Password :
+        <input type="password" name="room_password" placeholder="Room Password"><br>
         <input type="submit" value="Join Room">
     </form>
 </body>

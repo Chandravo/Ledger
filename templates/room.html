@@ -17,6 +17,88 @@
         {% endfor %}
     </ul>
     <br><br>
+    <h2>People you owe money to</h2>
+    <ul>
+        {% for r in out_rec %}
+            <li>
+                To : {{r.to_user}}<br>
+                Amount : {{r.amount}}<br>
+                Last Updated : {{r.last_updated}}<br>
+                
+            </li>
+        {% endfor %}
+
+    </ul>
+    <br>
+    <h2>People who owe you money</h2>
+    <ul>
+        {% for r in in_rec %}
+            <li>
+                From : {{r.from_user}}<br>
+                Amount : {{r.amount}}<br>
+               Last Updated : {{r.last_updated}}<br>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+
+
+    <br><br>
+    <h2>Incoming Money Requests</h2>
+    <ul>
+        {% for r in in_req %}
+            <li>
+                From : {{r.from_user}}<br>
+                Amount : {{r.amount}}<br>
+                Description : {{r.description}}
+                <br>
+                {% if r.is_accepted == False %}
+                Status : Pending<br>
+                <form action="{% url 'accept_money_request' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="request_key" value="{{r.key}}">
+                    <input type="hidden" name="room_key" value="{{room.key}}">
+                    <input type="submit" value="Accept">
+                </form>
+                {% else %}
+                Status : Accepted<br>
+                {% endif %}
+            </li>
+        {% endfor %}
+
+    </ul>
+
+    <br><br>
+    <h2>Outgoing Money Requests</h2>
+    <ul>
+        {% for r in out_req %}
+            <li>
+                To : {{r.to_user}}<br>
+                Amount : {{r.amount}}<br>
+                Description : {{r.description}}<br>
+                Date : {{r.date}}<br>
+                {% if r.is_accepted == False %}
+                Status : Pending<br>
+                <form action="{% url 'delete_money_request' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="request_key" value="{{r.key}}">
+                    <input type="hidden" name="room_key" value="{{room.key}}">
+                    <input type="submit" value="Delete">
+                </form>
+                {% else %}
+                Status : Accepted<br>
+                {% endif %}
+                
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+    <br><br>
+    <button onclick="location.href='/room/{{room.key}}/accepted_money_requests'">Accepted Money Requests</button>
+    <br><br>
     <button onclick="location.href='/room/{{room.key}}/create_money_request'">Create Money Request</button>
     <br><br>
     <button onclick="location.href='/';">Go home</button>

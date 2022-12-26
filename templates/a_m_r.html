@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accepted Requests</title>
+</head>
+<body>
+    <h1>Accepted Requests</h1>
+    <br><br>
+    <h2>Incoming requests</h2>
+    <ul>
+        {% for r in in_req %}
+            <li>
+                From : {{r.from_user}}<br>
+                Amount : {{r.amount}}<br>
+                Description : {{r.description}}
+                <br>
+                Status : Accepted<br>
+                
+            </li>
+        {% endfor %}
+    </ul>
+    <br><br>
+    <h2>Outgoing requests</h2>
+    <ul>
+        {% for r in out_req %}
+            <li>
+                To : {{r.to_user}}<br>
+                Amount : {{r.amount}}<br>
+                Description : {{r.description}}
+                <br>
+                Status : Accepted<br>
+                
+            </li>
+        {% endfor %}
+</body>
+</html>

@@ -10,8 +10,8 @@
     <h1>Create Money Request</h1>
     <form method="POST" action="create_money_request">
         {% csrf_token %}
-        <input type="text" name="room_key" value="{{room_key}}" placeholder="Room Key">
-        <input type="text" name="from_user" value="{{from_user}}" placeholder="From User">
+        Room Key :
+        <input type="text" name="room_key" value="{{room_key}}" placeholder="Room Key"><br><br>
         <label for="to_user">To User</label>
         <select name="to_user" id="to_user">
             {% for user in users %}
@@ -19,9 +19,11 @@
                 <option value="{{user}}">{{user}}</option>
             {% endif %}
             {% endfor %}
-        </select>
-        <input type="text" name="amount" placeholder="Amount">
-        <input type="text" name="description" placeholder="Description">
+        </select><br><br>
+        Amount :
+        <input type="text" name="amount" placeholder="Amount"><br><br>
+        Description :
+        <input type="text" name="description" placeholder="Description"><br><br>
         <input type="submit" value="Create Request">
     </form>
 </body>

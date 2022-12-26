@@ -9,9 +9,12 @@
 <body>
     <form method="POST" action="{% url 'register' %}">
         {% csrf_token %}
-        <input name="email" type="email" placeholder="Email" required>
-        <input name="name" type="text" placeholder="Name" required>
-        <input name="password" type="password" placeholder="Password" required>
+        Email :
+        <input name="email" type="email" placeholder="Enter email" required><br>
+        Name :
+        <input name="name" type="text" placeholder="Enter name" required><br>
+        Password :
+        <input name="password" type="password" placeholder="Enter password" required><br>
         <input type="submit" value="Register">
     </form>
 </body>

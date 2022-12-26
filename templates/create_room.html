@@ -9,8 +9,10 @@
 <body>
     <form action="{% url 'create_room' %}" method="POST">
         {% csrf_token %}
-        <input type="text" name="room_name" placeholder="Room Name">
-        <input type="password" name="room_password" placeholder="Room Password">
+        Room Name : 
+        <input type="text" name="room_name" placeholder="Room Name"><br>
+        Room Password :
+        <input type="password" name="room_password" placeholder="Room Password"><br>
         <input type="submit" value="Create Room">
     </form>
 </body>
