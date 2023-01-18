@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,50 +6,59 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <h1>Welcome to room {{room.name}}</h1>
+    
+    <div class="mainbox">
+        <h1 class='heading'>{{room.name}}</h1>
     <h3>Key: {{room.key}} </h3>
 
     <h2>Members</h2>
     <ul>
         {% for user in users %}
-            <li>Name : {{user.name}}<br>Email : {{user.email}}</li>
+            <li><p class='divlist'>Name : {{user.name}}<br>Email : {{user.email}}</p></li>
         {% endfor %}
     </ul>
-    <br><br>
+    <div class='subjects'>
     <h2>People you owe money to</h2>
+    <div class="texTcontent">
     <ul>
         {% for r in out_rec %}
             <li>
+                <p class='divlist'>
                 To : {{r.to_user}}<br>
                 Amount : {{r.amount}}<br>
                 Last Updated : {{r.last_updated}}<br>
-                
+                </p>
             </li>
         {% endfor %}
 
     </ul>
-    <br>
+</div>
+</div>
+    <div class='subjects'>
     <h2>People who owe you money</h2>
+    <div class="texTcontent">
     <ul>
         {% for r in in_rec %}
             <li>
+                <p class='divlist'>
                 From : {{r.from_user}}<br>
                 Amount : {{r.amount}}<br>
                Last Updated : {{r.last_updated}}<br>
+                </p>
             </li>
         {% endfor %}
     </ul>
-
-
-
-
-    <br><br>
+</div>
+</div>
+    <div class='subjects'>
     <h2>Incoming Money Requests</h2>
+    <div class="texTcontent">
     <ul>
         {% for r in in_req %}
-            <li>
+            <li><p class='divlist'>
                 From : {{r.from_user}}<br>
                 Amount : {{r.amount}}<br>
                 Description : {{r.description}}
@@ -59,21 +69,26 @@
                     {% csrf_token %}
                     <input type="hidden" name="request_key" value="{{r.key}}">
                     <input type="hidden" name="room_key" value="{{room.key}}">
-                    <input type="submit" value="Accept">
+                    <button class='buttonmain'>
+                        Accept
+                    </button>
                 </form>
                 {% else %}
                 Status : Accepted<br>
                 {% endif %}
+            </p>
             </li>
         {% endfor %}
 
     </ul>
-
-    <br><br>
+</div>
+</div>
+    <div class='subjects'>
     <h2>Outgoing Money Requests</h2>
+    <div class="texTcontent">
     <ul>
         {% for r in out_req %}
-            <li>
+            <li><p class='divlist'>
                 To : {{r.to_user}}<br>
                 Amount : {{r.amount}}<br>
                 Description : {{r.description}}<br>
@@ -84,28 +99,33 @@
                     {% csrf_token %}
                     <input type="hidden" name="request_key" value="{{r.key}}">
                     <input type="hidden" name="room_key" value="{{room.key}}">
-                    <input type="submit" value="Delete">
+                    <button class='buttonmain'>
+                        Delete
+                    </button>
                 </form>
                 {% else %}
                 Status : Accepted<br>
                 {% endif %}
-                
+            </p>
             </li>
 
         {% endfor %}
 
     </ul>
+</div>
 
+</div>
+    <button class='buttonmain' onclick="location.href='/room/{{room.key}}/accepted_money_requests'">Accepted Money Requests</button>
     <br><br>
-    <button onclick="location.href='/room/{{room.key}}/accepted_money_requests'">Accepted Money Requests</button>
+    <button class='buttonmain' onclick="location.href='/room/{{room.key}}/create_money_request'">Create Money Request</button>
     <br><br>
-    <button onclick="location.href='/room/{{room.key}}/create_money_request'">Create Money Request</button>
-    <br><br>
-    <button onclick="location.href='/';">Go home</button>
-    <br><br>
+    <button class='buttonmain' onclick="location.href='/';">Go home</button>
     {% if room.creator == curr_user %}
-        <button onclick="location.href='/room/{{room.key}}/delete';">Delete Room</button>
+        <button class='buttonmain' onclick="location.href='/room/{{room.key}}/delete';">Delete Room</button>
         
     {% endif %}
+</div>
+    <script src="{% static 'jquery-1.11.0.js' %}"></script>
+    <script src="{% static 'room.js' %}"></script>
 </body>
 </html>

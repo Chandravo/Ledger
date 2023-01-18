@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,20 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accepted Requests</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <h1>Accepted Requests</h1>
+    <div class="box">
+    <div class="box-in">
+    <h1 class='heading'>Accepted Requests</h1>
     <br><br>
     <h2>Incoming requests</h2>
     <ul>
         {% for r in in_req %}
-            <li>
+            <li><p class='divlist'>
                 From : {{r.from_user}}<br>
                 Amount : {{r.amount}}<br>
                 Description : {{r.description}}
                 <br>
                 Status : Accepted<br>
-                
+            </p>
             </li>
         {% endfor %}
     </ul>
@@ -26,14 +30,21 @@
     <h2>Outgoing requests</h2>
     <ul>
         {% for r in out_req %}
-            <li>
+            <li><p class='divlist'>
                 To : {{r.to_user}}<br>
                 Amount : {{r.amount}}<br>
                 Description : {{r.description}}
                 <br>
                 Status : Accepted<br>
-                
+            </p>
             </li>
         {% endfor %}
+        <br>
+        <br>
+        <button class='buttonmain' onclick="window.location.href = '/';">Go back to home</button>
+    </div>
+</div>
+    <script src="{% static 'jquery-1.11.0.js' %}"></script>
+    <script src="{% static 'createroom.js' %}"></script>
 </body>
 </html>

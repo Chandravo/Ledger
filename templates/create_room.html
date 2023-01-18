@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,15 +6,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Room</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
+    <div class="box">
+    <div class="box-in">
+        <div class='opaque'><h1 class='heading'>Create Room</h1></div>
+
     <form action="{% url 'create_room' %}" method="POST">
         {% csrf_token %}
+        <div class='features'>
         Room Name : 
-        <input type="text" name="room_name" placeholder="Room Name"><br>
+        <input type="text" id='rmname' class='input' name="room_name" placeholder="Room Name"><br>
+        </div>
+        <div class='features'>
         Room Password :
-        <input type="password" name="room_password" placeholder="Room Password"><br>
-        <input type="submit" value="Create Room">
+        <input type="password" id='psd' class='input'name="room_password" placeholder="Room Password"><br>
+    </div>
+    <div id="feedbackpass" class="error">
+
+    </div>
+    <button id="registerbutton" class='buttonmain'>
+        Create Room
+    </button>
+
     </form>
+</div>
+</div>
+    <script src="{% static 'jquery-1.11.0.js' %}"></script>
+    <script src="{% static 'createroom.js' %}"></script>
 </body>
 </html>

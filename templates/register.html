@@ -1,21 +1,36 @@
+{% load static %}
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
+    <div class="box">
+    <div class="box-in">
+    <div class='opaque'><h1 class='heading'>Register</h1></div>
     <form method="POST" action="{% url 'register' %}">
         {% csrf_token %}
         Email :
-        <input name="email" type="email" placeholder="Enter email" required><br>
+        <input type="email" id='emailreg' class="input" name="email" placeholder="Email" required><br><br>
         Name :
-        <input name="name" type="text" placeholder="Enter name" required><br>
+        <input name="name" type="text" class="input" id='namereg' placeholder="Enter name" required><br><br>
         Password :
-        <input name="password" type="password" placeholder="Enter password" required><br>
-        <input type="submit" value="Register">
+       <input type="password" class="input" name="password" id='passr' placeholder="Password" required><br><br>  
+       Confirm Password :
+       <input type="password" class="input" name="password" id='passcnf' placeholder="Password" required>
+        <div id="feedbackpass" class="error">
+
+        </div>
+         <button id="registerbutton" class='buttonmain'>Register</button>
     </form>
+</div>
+</div>
+    <script src="{% static 'jquery-1.11.0.js' %}"></script>
+    <script src="{% static 'register.js' %}"></script>
 </body>
 </html>

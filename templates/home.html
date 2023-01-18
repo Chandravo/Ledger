@@ -1,3 +1,7 @@
+{% load static %}
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,20 +9,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    Hello {{name}}
-    your rooms are:
-    <ul>
-        {% for room in rooms %}
-            <li>Name: {{room.name}}<br> Key:{{room.key}}<br>
-                <button onclick="location.href='/room/{{room.key}}'">Go to room</button>
-            </li>
-        {% endfor %}
-    </ul>
+    
+    <div class="divv">
+        <h1>Welcome <i>{{name}}</i> ;-) </h1>
+    </div>
+    <div class='page'>
+        <h1>Your rooms are:</h1>
+        <div class="list">
+        <ul>
+            {% for room in rooms %}
+                <li class='listitem'>Name: {{room.name}}<br> Key:{{room.key}}<br>
+                    <button class="button" onclick="location.href='/room/{{room.key}}'">Go to room</button>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
     <br>
-    <button onclick="location.href='/create_room'">Create Room</button>
-    <button onclick="location.href='/join_room'">Join Room</button>
-    <button onclick="location.href='/logout'">Logout</button>
+    <div class="buttondiv">
+    <button class="buttonmain" onclick="location.href='/create_room'">Create Room</button>
+    <button class="buttonmain"  onclick="location.href='/join_room'">Join Room</button>
+    <button id='logout' class="buttonmain"  onclick="location.href='/logout'">Logout</button>
+    </div>
+</div>
+    <script src="{% static 'jquery-1.11.0.js' %}"></script>
+    <script src="{% static 'index.js' %}"></script>
+
 </body>
 </html>
